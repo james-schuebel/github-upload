@@ -1,0 +1,40 @@
+/********************  
+**** REQUIRES : alias gcc='gcc -std=c99'
+**********************/
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+#include <time.h>
+#include <sys/types.h>
+#include <unistd.h>
+#include <sys/stat.h>
+
+#define MAXPARMS 100
+char *parms[MAXPARMS];
+int numParms=0;
+
+
+int main(int argc, char *argv[]){
+        char *temp;
+        char line[100];
+
+        strcpy(line,"cat data1.txt data2.txt");
+        printf("lin=%s\n",line);
+
+        temp = strtok(line, " "); //skip the symbol representing variable/parameter
+        int i=0;
+        while (temp != NULL) {
+             parms[i] = (char *) malloc (strlen(temp)+1);
+             strcpy(parms[i], temp);
+             printf("com temp: %s\n", temp);
+             printf("com parm: %s\n", parms[i]);
+                i++;
+             temp = strtok(NULL, " ");
+        }
+        numParms=i;
+        for(int j=0;j<numParms;j++)
+                printf("\n**parm(%d)=%s\n",j,parms[j]);
+
+        printf("END THIS MOFO\n");
+}
+
